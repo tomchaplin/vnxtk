@@ -79,11 +79,14 @@ class BifurcationVNetBuilder(VNetBuilder):
                 )
                 G.nodes[(-layer, i)]["z"] = 0
 
-    def __call__(self) -> VNet:
-        G = nx.Graph()
+    def _add_edges(self, G):
         for i in range(1, self.depth + 1):
             G.add_edges_from(self._get_layer(i))
             G.add_edges_from(self._get_layer(-i))
+
+    def __call__(self) -> VNet:
+        G = nx.Graph()
+        self._add_edges(G)
         self._impose_boundary_conditions(G)
         self._add_spatial_information(G)
         G = nx.convert_node_labels_to_integers(G, label_attribute="bifur_name")

@@ -19,7 +19,7 @@ class GridVNetBuilder(VNetBuilder):
         self.size = size
         self.boundary_conditions = boundary_conditions
 
-    def _add_nodes(self, G):
+    def _add_edges(self, G):
         for i in range(self.size - 1):
             G.add_edges_from(
                 [
@@ -58,7 +58,7 @@ class GridVNetBuilder(VNetBuilder):
 
     def __call__(self) -> VNet:
         G = nx.Graph()
-        self._add_nodes(G)
+        self._add_edges(G)
         self._impose_boundary_conditions(G)
         self._add_spatial_information(G)
         G = nx.convert_node_labels_to_integers(G, label_attribute="grid_name")
