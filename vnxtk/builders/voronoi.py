@@ -10,6 +10,7 @@ class VoronoiVNetBuilder(VNetBuilder):
         self.n_points = n_points
         self.points = points
 
+    # Return a list of voronoi.vertices indexes whose coordinates are in the unit cube
     def _get_good_vertices(self):
         all_vs = self.voronoi.vertices
         return (
@@ -29,6 +30,7 @@ class VoronoiVNetBuilder(VNetBuilder):
     def _add_edges(self, G):
         good_vs = self._get_good_vertices()
         for edge in self.voronoi.ridge_vertices:
+            # Only add edges between vertices inside unit cube
             if any(v_idx not in good_vs for v_idx in edge):
                 continue
             edge_len = np.linalg.norm(
@@ -45,6 +47,7 @@ class VoronoiVNetBuilder(VNetBuilder):
             G.nodes[v]["y"] = self.voronoi.vertices[v, 1]
             G.nodes[v]["z"] = 0
 
+    # Unit source on left-most, unit sink on right-most
     def _impose_boundary_conditions(self, G):
         good_vs = self._get_good_vertices()
         source_idx = np.argmin(self.voronoi.vertices[good_vs, 0])
