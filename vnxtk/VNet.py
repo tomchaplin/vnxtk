@@ -11,6 +11,12 @@ class VNet:
     def model(self, model):
         self.modelled = model(self.underlying)
 
+    def copy(self):
+        return VNet(
+            self.underlying.copy(),
+            modelled=self.modelled.copy() if self.modelled is not None else None,
+        )
+
     def get_interactive_graph_viewer(
         self, of="modelled", cone_key="weight", min_cone_size=0.5
     ):
