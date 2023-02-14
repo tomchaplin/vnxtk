@@ -5,12 +5,6 @@ import math
 import pdb
 
 
-def _get_edge_idx(edge, edge_basis):
-    sorted_edge = sorted(edge)
-    idxs = [idx for idx, (e, res) in enumerate(edge_basis) if e == sorted]
-    return idxs[0]
-
-
 # Matrix of equations describing current in = current out at each node
 def _build_first_law_eqs(underlying, edge_basis):
     M = np.array(
