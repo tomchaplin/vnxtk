@@ -20,15 +20,23 @@ class VNet:
             strings = [f"{key}: {value}" for key, value in e_data.items()]
             return "<br>".join(strings)
 
+        def _format_node_data(node, ndt):
+            strings = [f"Node: {node}"] + [
+                f"{key}: {value}"
+                for key, value in ndt.items()
+                if key not in ["x", "y", "z"]
+            ]
+            return "<br>".join(strings)
+
         node_coords = {
             node: [ndt["x"], ndt["y"], ndt["z"], node]
             for node, ndt in G.nodes(data=True)
         }
 
-        x_nodes = [coords[0] for coords in node_coords.values()]
-        y_nodes = [coords[1] for coords in node_coords.values()]
-        z_nodes = [coords[2] for coords in node_coords.values()]
-        hover_nodes = [f"Node: {coords[3]}" for coords in node_coords.values()]
+        x_nodes = [ndt["x"] for _, ndt in G.nodes(data=True)]
+        y_nodes = [ndt["y"] for _, ndt in G.nodes(data=True)]
+        z_nodes = [ndt["z"] for _, ndt in G.nodes(data=True)]
+        hover_nodes = [_format_node_data(node, ndt) for node, ndt in G.nodes(data=True)]
         max_w = max([e_data[cone_key] for _, _, e_data in G.edges(data=True)])
         x_edges = []
         y_edges = []
