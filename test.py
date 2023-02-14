@@ -1,15 +1,27 @@
-from vnxtk.builders import BifurcationVNetBuilder, GridVNetBuilder, VoronoiVNetBuilder
+from vnxtk.builders import (
+    BifurcationBuilder,
+    GridBuilder,
+    VoronoiBuilder,
+    ReanimateBuilder,
+)
 from vnxtk.flow_models import LinearModel
+from vnxtk.alterations import RandomRemoval
 from vnxtk.builders.bifurcation import BifurcationBoundaryConditions
 from vnxtk.builders.grid import GridBoundaryConditions
 
-# builder = BifurcationVNetBuilder(
-#    depth=3, thinned=False, boundary_conditions=BifurcationBoundaryConditions.CROSS_LOAD
-# )
-# builder = GridVNetBuilder(size=5, boundary_conditions=GridBoundaryConditions.CROSS_LOAD)
-builder = VoronoiVNetBuilder(n_points=50)
+builder = BifurcationBuilder(
+    depth=5, thinned=False, boundary_conditions=BifurcationBoundaryConditions.USUAL
+)
+# builder = GridBuilder(size=5, boundary_conditions=GridBoundaryConditions.CROSS_LOAD)
+# builder = VoronoiBuilder(n_points=50)
 V = builder()
 model = LinearModel()
 V.model(model)
-fig = V.get_interactive_graph_viewer(cone_key="speed")
+print(V.underlying.number_of_edges())
+alt = RandomRemoval(p=0.4)
+V2 = V.copy()
+alt(V2)
+V2.model(model)
+print(V2.underlying.number_of_edges())
+fig = V2.get_interactive_graph_viewer(cone_key="speed")
 fig.show()
