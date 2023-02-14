@@ -64,7 +64,7 @@ def _build_digraph(underlying, edge_basis, x):
         data["speed"] = data["current"] / (
             (math.pi / 4.0) * data["diam"] * data["diam"]
         )
-        data["time"] = data["length"] / data["speed"]
+        data["time"] = data["length"] / data["speed"] if data["speed"] != 0 else np.inf
         data["weight"] = data["time"]
     return modelled
 
@@ -73,6 +73,7 @@ class LinearModel(VNetModel):
     def __init__(self):
         pass
 
+    # TODO: Raise an error if residuals are too high?
     def __call__(self, underlying: nx.Graph) -> nx.DiGraph:
         modelled = nx.DiGraph()
         # List of (edge, resistance) tuples
