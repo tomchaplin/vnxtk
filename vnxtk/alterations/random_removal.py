@@ -1,6 +1,5 @@
 from .abstract import VNetAlteration
 from vnxtk import VNet
-import networkx as nx
 from random import random, randint
 from typing import Tuple
 
@@ -14,7 +13,6 @@ class RandomRemoval(VNetAlteration):
         if (p is None and m is None) or not ((p is None) or (m is None)):
             raise ValueError("Must provide exactly one of p or m")
 
-    # TODO: Implement
     def __call__(self, V: VNet):
         if self.p is not None:
             RandomRemoval.indep_random_edge_removal(V, self.p)
@@ -43,7 +41,7 @@ class RandomRemoval(VNetAlteration):
         if m <= 0:
             return
         nedges = V.underlying.number_of_edges()
-        edge_idx_to_remove = randint(0, nedges)
+        edge_idx_to_remove = randint(0, nedges - 1)
         edge_to_remove = list(V.underlying.edges)[edge_idx_to_remove]
         RandomRemoval.remove_edge(V, edge_to_remove)
         RandomRemoval.m_random_edge_removal(V, m - 1)
