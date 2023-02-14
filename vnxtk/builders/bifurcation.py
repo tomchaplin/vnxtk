@@ -10,7 +10,7 @@ class BifurcationBoundaryConditions(Enum):
     CROSS_LOAD = 2
 
 
-class BifurcationVNetBuilder(VNetBuilder):
+class BifurcationBuilder(VNetBuilder):
     def __init__(
         self,
         depth: int = 1,
@@ -29,14 +29,20 @@ class BifurcationVNetBuilder(VNetBuilder):
             (
                 (prev_layer, 2 * i),
                 (layer, i),
-                {"length": 1, "diam": math.sqrt(1 / (2 * n_nodes)) if self.thinned else 1},
+                {
+                    "length": 1,
+                    "diam": math.sqrt(1 / (2 * n_nodes)) if self.thinned else 1,
+                },
             )
             for i in range(n_nodes)
         ] + [
             (
                 (prev_layer, 2 * i + 1),
                 (layer, i),
-                {"length": 1, "diam": math.sqrt(1 / (2 * n_nodes)) if self.thinned else 1},
+                {
+                    "length": 1,
+                    "diam": math.sqrt(1 / (2 * n_nodes)) if self.thinned else 1,
+                },
             )
             for i in range(n_nodes)
         ]

@@ -5,7 +5,7 @@ from scipy.spatial import Voronoi
 import numpy as np
 
 
-class VoronoiVNetBuilder(VNetBuilder):
+class VoronoiBuilder(VNetBuilder):
     def __init__(self, n_points: int = 40, points=None):
         self.n_points = n_points
         self.points = points

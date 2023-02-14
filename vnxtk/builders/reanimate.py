@@ -70,7 +70,7 @@ def _add_segment_lines(G, segment_lines):
     return G
 
 
-class ReanimateVNetBuilder(VNetBuilder):
+class ReanimateBuilder(VNetBuilder):
     def __init__(self):
         pass
 

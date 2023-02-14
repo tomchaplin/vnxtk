@@ -10,7 +10,7 @@ class GridBoundaryConditions(Enum):
     CROSS_LOAD = 2
 
 
-class GridVNetBuilder(VNetBuilder):
+class GridBuilder(VNetBuilder):
     def __init__(
         self,
         size: int = 1,
