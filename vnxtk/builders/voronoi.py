@@ -65,5 +65,5 @@ class VoronoiVNetBuilder(VNetBuilder):
         self._add_edges(G)
         self._impose_boundary_conditions(G)
         self._add_spatial_information(G)
-        G = nx.convert_node_labels_to_integers(G, label_attribute="grid_name")
+        G = nx.convert_node_labels_to_integers(G, label_attribute="voronoi_name")
         return VNet(G)
