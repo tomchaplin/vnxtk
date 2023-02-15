@@ -24,7 +24,7 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
 dependencies = [
-    "networkx~=3.0",
+    "networkx~=2.8.8",
     "numpy~=1.24.2",
     "scipy~=1.10.0",
     "plotly~=5.13.0",
