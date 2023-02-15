@@ -1,6 +1,8 @@
 import networkx as nx
 import plotly.graph_objects as go
 import numpy as np
+from vnxtk.flow_models import VNetModel
+from vnxtk.alterations import VNetAlteration
 
 
 class VNet:
@@ -8,8 +10,13 @@ class VNet:
         self.underlying = underlying
         self.modelled = modelled
 
-    def model(self, model):
+    def model(self, model: VNetModel):
         self.modelled = model(self.underlying)
+        return self
+
+    def alter(self, alteration: VNetAlteration):
+        alteration(self)
+        return self
 
     def copy(self):
         return VNet(
