@@ -113,5 +113,5 @@ class VNet:
         }
         default_layout = {"scene": default_scene}
         fig = go.Figure(data=underlying_traces, layout=default_layout)
-        fig.update_layout(margin=dict(l=10, r=10, t=10, b=10))
+        fig.update_layout(margin=dict(l=0, r=0, t=0, b=0))
         return fig
