@@ -5,7 +5,7 @@ from vnxtk.builders import (
     ReanimateBuilder,
 )
 from vnxtk.flow_models import LinearModel
-from vnxtk.alterations import RandomRemoval
+from vnxtk.alterations import RandomRemoval, RandomRewiring
 from vnxtk.builders.bifurcation import BifurcationBoundaryConditions
 from vnxtk.builders.grid import GridBoundaryConditions
 
@@ -18,7 +18,7 @@ V = builder()
 model = LinearModel()
 V.model(model)
 print(V.underlying.number_of_edges())
-alt = RandomRemoval(p=0.4)
+alt = RandomRewiring(1)
 V2 = V.copy()
 alt(V2)
 V2.model(model)
