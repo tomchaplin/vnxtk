@@ -7,7 +7,7 @@ name = "vnxtk"
 description = 'A toolkit for working with vasculature in NetworkX'
 readme = "README.md"
 requires-python = ">=3.7"
-license = "GPLv3"
+license = "GPL-3.0-only"
 keywords = []
 authors = [
   { name = "Thomas Chaplin", email = "tomrchaplin@gmail.com" },
