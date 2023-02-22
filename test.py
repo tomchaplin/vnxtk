@@ -5,9 +5,13 @@ from vnxtk.builders import (
     ReanimateBuilder,
 )
 from vnxtk.flow_models import LinearModel
-from vnxtk.alterations import RandomRemoval, RandomRewiring
+from vnxtk.alterations import RandomRemoval, RandomRewiring, RandomBoundary
 from vnxtk.builders.bifurcation import BifurcationBoundaryConditions
 from vnxtk.builders.grid import GridBoundaryConditions
+from grpphati.pipelines.grounded import GrPPH
+import seaborn as sns
+import numpy as np
+import matplotlib.pyplot as plt
 
 builder = BifurcationBuilder(
     depth=5, thinned=False, boundary_conditions=BifurcationBoundaryConditions.USUAL
@@ -17,11 +21,19 @@ builder = BifurcationBuilder(
 V = builder()
 model = LinearModel()
 V.model(model)
-print(V.underlying.number_of_edges())
-alt = RandomRewiring(1)
-V2 = V.copy()
-alt(V2)
-V2.model(model)
-print(V2.underlying.number_of_edges())
-fig = V2.get_interactive_graph_viewer(cone_key="speed")
-fig.show()
+res = GrPPH(V.modelled)
+base = sum([bar[1] for bar in res.barcode])
+
+alt = RandomBoundary()
+other = []
+
+
+for i in range(500):
+    alt(V)
+    V.model(model)
+    other_res = GrPPH(V.modelled)
+    other.append(min(sum([bar[1] for bar in other_res.barcode]), 2000))
+
+print(base)
+sns.histplot(data=other)
+plt.show()
