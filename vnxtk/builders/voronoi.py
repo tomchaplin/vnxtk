@@ -6,9 +6,10 @@ import numpy as np
 
 
 class VoronoiBuilder(VNetBuilder):
-    def __init__(self, n_points: int = 40, points=None):
+    def __init__(self, n_points: int = 40, points=None, seed=None):
         self.n_points = n_points
         self.points = points
+        self.seed = seed
 
     # Return a list of voronoi.vertices indexes whose coordinates are in the unit cube
     def _get_good_vertices(self):
@@ -22,6 +23,8 @@ class VoronoiBuilder(VNetBuilder):
         )
 
     def _compute_voronoi(self):
+        if self.seed is not None:
+            np.random.seed(self.seed)
         points = (
             self.points if self.points is not None else np.random.rand(self.n_points, 2)
         )
